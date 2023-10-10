@@ -1,10 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { searchByTitle } from './MangaDexAPI'
 import { Manga } from './Manga'
 
 export const SearchParams = () => {
     const [input, setInput] = useState('')
     const [items, setItems] = useState([{}])
+
+    useEffect(() => {
+        searchByTitle(input)
+    })
 
     const handleItem = (item, key) => {
         let title =
@@ -54,36 +58,10 @@ export const SearchParams = () => {
         )
     } else {
         return (
-            (
-                <div className="search-params" key="1">
-                    <form action="">
-                        <input
-                            placeholder="manga name"
-                            value={input}
-                            onChange={(e) => setInput(e.target.value)}
-                            id="name"
-                            type="text"
-                        />
-                        <button
-                            onClick={(e) => {
-                                e.preventDefault()
-                                searchByTitle(input).then((data) => {
-                                    setItems(data)
-                                })
-                            }}
-                            className="button"
-                        >
-                            submit
-                        </button>
-                    </form>
-                </div>
-            ),
-            (
-                <div className="mangaresults" key="2">
-                    {items.length > 1 &&
-                        items.map((item, i) => handleItem(item, i))}
-                </div>
-            )
+            <div className="mangaresults" key="2">
+                {items.length > 1 &&
+                    items.map((item, i) => handleItem(item, i))}
+            </div>
         )
     }
 }
