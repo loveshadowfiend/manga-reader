@@ -1,14 +1,25 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { searchByTitle } from './MangaDexAPI'
 import { Manga } from './Manga'
+import { TailSpin } from 'react-loading-icons'
 
 export const SearchParams = () => {
     const [input, setInput] = useState('')
     const [items, setItems] = useState([{}])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        searchByTitle(input)
-    })
+        if (input == '') {
+            setItems([{}])
+            return
+        }
+
+        setLoading(true)
+        searchByTitle(input).then((data) => {
+            setItems(data)
+            setLoading(false)
+        })
+    }, [input])
 
     const handleItem = (item, key) => {
         let title =
@@ -31,37 +42,35 @@ export const SearchParams = () => {
         return <Manga title={title} desc={desc} coverUrl={coverUrl} key={key} />
     }
 
-    if (items.length < 2) {
-        return (
-            <div className="search-params" key="1">
-                <form action="">
-                    <input
-                        placeholder="manga name"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        id="name"
-                        type="text"
-                    />
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault()
-                            searchByTitle(input).then((data) => {
-                                setItems(data)
-                            })
-                        }}
-                        className="button"
-                    >
-                        submit
-                    </button>
-                </form>
-            </div>
-        )
-    } else {
-        return (
-            <div className="mangaresults" key="2">
-                {items.length > 1 &&
-                    items.map((item, i) => handleItem(item, i))}
-            </div>
-        )
-    }
+    return [
+        <div className="search-params" key="1">
+            <form action="">
+                <input
+                    placeholder="manga name"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    id="name"
+                    type="text"
+                />
+                <button
+                    onClick={(e) => {
+                        e.preventDefault()
+                        searchByTitle(input).then((data) => {
+                            setItems(data)
+                        })
+                    }}
+                    className="button"
+                >
+                    submit
+                </button>
+            </form>
+        </div>,
+        <div className="mangaresults" key="2">
+            {loading && <TailSpin />}
+            {items.length > 2 &&
+                input != '' &&
+                !loading &&
+                items.map((item, i) => handleItem(item, i))}
+        </div>,
+    ]
 }

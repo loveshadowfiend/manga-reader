@@ -14,7 +14,3 @@ export const searchByTitle = async (title) => {
 
     return resp.data.data
 }
-
-searchByTitle('kimetsu no yaiba').then((data) => {
-    console.log(data)
-})

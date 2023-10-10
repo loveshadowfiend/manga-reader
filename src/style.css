@@ -11,7 +11,7 @@ body {
 
 .search-params {
     width: 100%;
-    min-height: 100vh;
+    min-height: 10vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,7 +41,7 @@ body {
     color: #e8e8d3;
 }
 
-.manga p {
+.mangaDetails p {
     text-align: justify;
     font-weight: 0;
     font-style: italic;

@@ -8,7 +8,7 @@ export const Manga = (props) => {
                     alt="manga cover"
                 ></img>
             </div>
-            <div>
+            <div className="mangaDetails">
                 <h1>{props.title}</h1>
                 <p>{props.desc}</p>
             </div>
