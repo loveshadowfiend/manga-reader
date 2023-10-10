@@ -1,0 +1,65 @@
+* {
+    padding: 0;
+    font-family: 'Century Gothic';
+    background-color: #151515;
+}
+
+body {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+.search-params {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-params input {
+    background-color: #e8e8d3;
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 10px 50px 10px 10px;
+    font-size: 14px;
+    color: #151515;
+}
+
+.search-params button {
+    border: 0;
+    background-color: tomato;
+    color: #e8e8d3;
+    padding: 10px 50px;
+    letter-spacing: 1px;
+}
+
+.mangaresults {
+    display: grid;
+    place-content: center;
+    color: #e8e8d3;
+}
+
+.manga p {
+    text-align: justify;
+    font-weight: 0;
+    font-style: italic;
+}
+
+.manga {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
+
+.mangaCover {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mangaCover img {
+    width: 400px;
+}
