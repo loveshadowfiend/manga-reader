@@ -1,25 +1,23 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { searchByTitle } from './MangaDexAPI'
 import { Manga } from './Manga'
 import { TailSpin } from 'react-loading-icons'
 
 export const SearchParams = () => {
     const [input, setInput] = useState('')
+    const [submitted, setSubmitted] = useState('')
     const [items, setItems] = useState([{}])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-        if (input == '') {
-            setItems([{}])
-            return
+        if (submitted.length > 0) {
+            setLoading(true)
+            searchByTitle(submitted).then((data) => {
+                setItems(data)
+                setLoading(false)
+            })
         }
-
-        setLoading(true)
-        searchByTitle(input).then((data) => {
-            setItems(data)
-            setLoading(false)
-        })
-    }, [input])
+    }, [submitted])
 
     const handleItem = (item, key) => {
         let title =
@@ -55,9 +53,8 @@ export const SearchParams = () => {
                 <button
                     onClick={(e) => {
                         e.preventDefault()
-                        searchByTitle(input).then((data) => {
-                            setItems(data)
-                        })
+
+                        setSubmitted(input)
                     }}
                     className="button"
                 >
@@ -68,7 +65,7 @@ export const SearchParams = () => {
         <div className="mangaresults" key="2">
             {loading && <TailSpin />}
             {items.length > 2 &&
-                input != '' &&
+                submitted != '' &&
                 !loading &&
                 items.map((item, i) => handleItem(item, i))}
         </div>,
