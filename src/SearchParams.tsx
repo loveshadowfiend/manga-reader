@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { searchByTitle } from './MangaDexAPI'
-import { MangaCard } from './Manga'
+import { MangaCard } from './MangaCard'
 import { TailSpin } from 'react-loading-icons'
 
 export const SearchParams = () => {
