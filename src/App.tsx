@@ -1,3 +1,5 @@
+/// <reference lib="dom"/>
+
 import { createRoot } from 'react-dom/client'
 import { SearchParams } from './SearchParams'
 
@@ -9,5 +11,5 @@ const App = () => {
     )
 }
 
-const root = createRoot(document.getElementById('root'))
+const root = createRoot(document.getElementById('root')!)
 root.render(<App />)

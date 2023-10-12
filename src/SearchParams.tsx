@@ -1,12 +1,32 @@
 import { useEffect, useState } from 'react'
 import { searchByTitle } from './MangaDexAPI'
-import { Manga } from './Manga'
+import { MangaCard } from './Manga'
 import { TailSpin } from 'react-loading-icons'
 
 export const SearchParams = () => {
+    type Languages = {
+        ja: string,
+        ru: string,
+        en: string,
+    }
+    
+    type Manga = {
+        id: string,
+        attributes: {
+            title: Languages,
+            description: Languages,
+        },
+        relationships: [{
+            type: string,
+            attributes: {
+                fileName: string
+            }
+        }]
+    }
+
     const [input, setInput] = useState('')
     const [submitted, setSubmitted] = useState('')
-    const [items, setItems] = useState([{}])
+    const [items, setItems] = useState([])
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
@@ -19,7 +39,7 @@ export const SearchParams = () => {
         }
     }, [submitted])
 
-    const handleItem = (item, key) => {
+    const handleItem = (item: Manga, key: number) => {
         let title =
                 item.attributes.title.en == undefined
                     ? item.attributes.title.ja
@@ -37,7 +57,7 @@ export const SearchParams = () => {
             }
         }
 
-        return <Manga title={title} desc={desc} coverUrl={coverUrl} key={key} />
+        return <MangaCard title={title} desc={desc} coverUrl={coverUrl} key={key} />
     }
 
     return [

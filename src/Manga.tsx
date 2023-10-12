@@ -1,4 +1,10 @@
-export const Manga = (props) => {
+interface Props {
+    coverUrl: string
+    title: string
+    desc: string
+}
+
+export const MangaCard = (props: Props) => {
     return (
         <div className="manga">
             <div className="mangaCover">
