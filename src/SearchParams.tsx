@@ -73,7 +73,6 @@ export const SearchParams = () => {
                 <button
                     onClick={(e) => {
                         e.preventDefault()
-
                         setSubmitted(input)
                     }}
                     className="button"
